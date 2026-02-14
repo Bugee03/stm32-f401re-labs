@@ -1,4 +1,4 @@
-# GPIO Blinky — STM32 Nucleo-F401RE
+#  STM32 Nucleo-F401RE
 
 ## Goal
 Learn basic GPIO configuration and HAL initialization.
