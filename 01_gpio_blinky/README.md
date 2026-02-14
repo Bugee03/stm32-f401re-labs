@@ -20,7 +20,7 @@ Blink LD2 (PA5) using direct register manipulation (no HAL GPIO functions).
 ### 1️⃣ RCC AHB1 Enable
 ```c
 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-
+```
 
 2️⃣ GPIO MODER
 ```c
