@@ -54,3 +54,24 @@ This version adds the must-have robustness:
 - enables preload (ARPE + OC1PE)
 - forces update event (EGR=UG) so PSC/ARR/CCR are loaded before start
 
+## Register map (what each block does)
+# A) GPIO configuration (PA8 as TIM1_CH1)
+RCC->AHB1ENR.GPIOAEN — enable GPIOA clock
+GPIOA->MODER — set PA8 to Alternate Function mode
+GPIOA->AFR[1] — select AF1 for PA8 (TIM1_CH1)
+GPIOA->OSPEEDR — higher speed improves edge quality at MHz
+# B) Timer base configuration
+RCC->APB2ENR.TIM1EN — enable TIM1 clock
+TIM1->PSC — prescaler
+TIM1->ARR — period (top value)
+TIM1->CCR1 — compare (duty)
+# C) PWM mode + output enable
+TIM1->CCMR1.OC1M=110 — PWM mode 1
+TIM1->CCMR1.OC1PE=1 — preload CCR1 (glitch-free updates)
+TIM1->CCER.CC1E=1 — enable CH1 output
+TIM1->BDTR.MOE=1 — enable advanced timer outputs
+TIM1->CR1.ARPE=1 — preload ARR
+TIM1->EGR.UG=1 — load buffered registers immediately
+TIM1->CR1.CEN=1 — start
+
+
